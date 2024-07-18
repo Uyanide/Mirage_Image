@@ -11,4 +11,4 @@ Pillow
 convert_png.py | 将图片转为png | python convert_png.py <原图路径> | 原图名.png |
 
 ## 说明
-详情见 [百度贴吧 - 开个贴细说新式高科技坦克](https://tieba.baidu.com/p/9093709508?pid=150608350742)
+详情见 [百度贴吧 - 开个贴细说新式高科技坦克](https://tieba.baidu.com/p/9093709508)
