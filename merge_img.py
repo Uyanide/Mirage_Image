@@ -72,6 +72,6 @@ if len(sys.argv) < 3:
     sys.exit(1)
 inner_path = sys.argv[1]
 cover_path = sys.argv[2]
-inner = load_inner_image(inner_path, 1000)
+inner = load_inner_image(inner_path)
 cover = load_cover_image(cover_path, inner.size)
 merge(inner, cover, 8).convert('RGB').save('output.jpg', 'JPEG', quality = 95)
