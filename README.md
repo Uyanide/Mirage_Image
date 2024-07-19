@@ -14,7 +14,7 @@ Pillow
 | gen.py | 将表里图合成一张隐写图，并可指定部分参数 | output.jpg (默认) |
 
 ### 脚本功能介绍：
-1. Usage：
+1. usage：
 ```
 python gen.py {gray,colored} inner_image_path cover_image_path [output_file_prefix] ...
 ```
@@ -36,7 +36,7 @@ python gen.py {gray,colored} inner_image_path cover_image_path [output_file_pref
 | --limit_inner VALUE | -i VALUE | 里图色阶区间端点 | 32 |
 | --limit_cover VALUE | -c VALUE | 表图色阶区间端点 | 64 |
 | --hiding_rate VALUE | -r VALUE | 每VALUE个像素隐藏一个里图像素 | 2 |
-(VALUE均为正整数)
+<small>(VALUE均为正整数)</small>
 
 3. 使用说明
     1. 如果limit_inner参数不大于limit_cover，里图色阶区间限制为 [0, limit_inner]，表图色阶区间限制为 [limit_cover, 255]。
@@ -47,7 +47,7 @@ python gen.py {gray,colored} inner_image_path cover_image_path [output_file_pref
 ## 过往脚本
 | 文件名 | 实现功能 | 使用说明 | 输出文件 |
 |-------|-------|-------|-------|
-| legacy/merge_img.py | 将表里图合成一张隐写图，表图不保留色彩（早期版本） | python merge_img.py <里图路径> <表图路径> | output.jpg |
+| legacy/merge_img.py | 将表里图合成一张隐写图，表图不保留色彩 | python merge_img.py <里图路径> <表图路径> | output.jpg |
 | legacy/set_transparency.py | 将灰度图片中像素间隔设置为透明 | python set_transparency.py <图片路径> | output.png |
 | legacy/convert_png.py | 将图片转为png | python convert_png.py <原图路径> | 原图名.png |
 

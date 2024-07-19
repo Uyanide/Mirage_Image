@@ -23,7 +23,7 @@ parser.add_argument('cover_image_path', help = 'cover image path')
 parser.add_argument('output_file_prefix', nargs = '?', default = 'output', help = 'output file prefix')
 
 # 可选参数
-parser.add_argument('--max_size', '-s', type = int, default = MAX_SIZE, help = 'max size of inner image')
+parser.add_argument('--max_size', '-s', type = int, default = MAX_SIZE, help = 'max size of output image')
 parser.add_argument('--limit_inner', '-i', type = int, default = LIMIT_INNER, help = 'limit of inner image')
 parser.add_argument('--limit_cover', '-c', type = int, default = LIMIT_COVER, help = 'limit of cover image')
 parser.add_argument('--hiding_rate', '-r', type = int, default = HIDING_RATE, help = 'hiding rate')
