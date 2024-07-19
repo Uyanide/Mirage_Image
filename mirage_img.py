@@ -1,8 +1,7 @@
 from PIL import Image
 
 class Mirage_Image_Colored:
-    @staticmethod
-    def load_inner_image(image_path, max_size):
+    def load_inner_image(self, image_path, max_size):
         '''
         加载里图, 限制最大尺寸, 进行缩放
         :param image_path: 图片路径
@@ -12,10 +11,9 @@ class Mirage_Image_Colored:
         img = Image.open(image_path).convert('RGB')
         # 限制最大尺寸，进行缩放
         img.thumbnail((max_size, max_size), Image.LANCZOS)
-        return img
+        self.inner_img = img
 
-    @staticmethod
-    def load_cover_image(image_path, target_size):
+    def load_cover_image(self, image_path, target_size):
         '''
         加载表图, 根据里图尺寸裁剪并缩放
         :param image_path: 图片路径
@@ -35,21 +33,9 @@ class Mirage_Image_Colored:
         # 裁剪并缩放
         cropped_img = img.crop(crop_area)
         resized_img = cropped_img.resize(target_size, Image.Resampling.LANCZOS)
-        return resized_img
+        self.cover_img = resized_img
 
-    def __init__(self, inner_path, cover_path, max_size):
-        '''
-        构造函数
-        :param inner_path: 里图路径
-        :param cover_path: 表图路径
-        :param max_size: 最大尺寸
-        '''
-        self.inner_path = inner_path
-        self.cover_path = cover_path
-        self.inner_img = self.load_inner_image(inner_path, max_size)
-        self.cover_img = self.load_cover_image(cover_path, self.inner_img.size)
-
-    def get_pixels(self):
+    def _get_pixels(self):
         '''
         获取表里图像素访问对象
         :return: 表里图像素访问对象 (均为RGB模式)
@@ -67,7 +53,7 @@ class Mirage_Image_Colored:
         正向隐写(limit_inner <= limit_cover): 即里图向0偏移, 表图向255偏移
         反向隐写(limit_inner > limit_cover): 即里图向255偏移, 表图向0偏移
         '''
-        pixels_inner, pixels_cover = self.get_pixels()
+        pixels_inner, pixels_cover = self._get_pixels()
         output_img = Image.new('RGB', self.inner_img.size)
         pixels_output = output_img.load()
 
@@ -96,9 +82,29 @@ class Mirage_Image_Colored:
                 pixels_output[i, j] = (compress(r), compress(g), compress(b))
         return output_img
 
+    def __init__(self, inner_path, cover_path, max_size, limit_inner, limit_cover, hiding_rate):
+        '''
+        构造函数, 直接加载里图和表图, 生成隐写图
+        :param inner_path: 里图路径
+        :param cover_path: 表图路径
+        :param max_size: 最大尺寸
+        '''
+        self.load_inner_image(inner_path, max_size)
+        self.load_cover_image(cover_path, self.inner_img.size)
+        self.result = self.merge(limit_inner, limit_cover, hiding_rate)
+
+    def save(self, output_path, format, quality, subsampling):
+        '''
+        保存隐写图
+        :param output_path: 输出路径
+        :param format: 输出格式
+        :param quality: 输出质量
+        :param subsampling: 输出子采样
+        '''
+        self.result.save(output_path, format, quality = quality, subsampling = subsampling)
 
 class Mirage_Image_Gray(Mirage_Image_Colored):
-    def get_pixels(self):
+    def _get_pixels(self):
         '''
         获取表里图像素访问对象
         :return: 表里图像素访问对象 (表图为RGB模式的灰度图)

@@ -1,6 +1,7 @@
 from mirage_img import Mirage_Image_Colored
 from mirage_img import Mirage_Image_Gray
 from argparse import ArgumentParser
+from sys import exit as sys_exit
 
 # 默认参数
 # merge
@@ -28,6 +29,7 @@ parser.add_argument('--limit_inner', '-i', type = int, default = LIMIT_INNER, he
 parser.add_argument('--limit_cover', '-c', type = int, default = LIMIT_COVER, help = 'limit of cover image')
 parser.add_argument('--hiding_rate', '-r', type = int, default = HIDING_RATE, help = 'hiding rate')
 
+# 读取参数
 args = parser.parse_args()
 
 option = args.option
@@ -39,22 +41,25 @@ LIMIT_INNER = args.limit_inner
 LIMIT_COVER = args.limit_cover
 HIDING_RATE = args.hiding_rate
 
+# 参数检查
 if MAX_SIZE < 1:
     print('Max size must be positive')
-    exit(1)
+    sys_exit(1)
 if LIMIT_INNER < 0 or LIMIT_INNER > 255:
     print('Limit of inner image must be in [0, 255]')
-    exit(1)
+    sys_exit(1)
 if LIMIT_COVER < 0 or LIMIT_COVER > 255:
     print('Limit of cover image must be in [0, 255]')
-    exit(1)
+    sys_exit(1)
 if HIDING_RATE < 2:
     print('Hiding rate must be at least 2')
-    exit(1)
+    sys_exit(1)
 
 if option == 'gray':
-    Mirage_Image_Gray(inner_path, cover_path, MAX_SIZE).merge(LIMIT_INNER, LIMIT_COVER, HIDING_RATE).save(output_path + '.jpg', 'JPEG', quality = JPEG_QUALITY, subsampling = JPEG_SUBSAMPLING)
+    Mirage_Image_Class = Mirage_Image_Gray
 elif option == 'colored':
-    Mirage_Image_Colored(inner_path, cover_path, MAX_SIZE).merge(LIMIT_INNER, LIMIT_COVER, HIDING_RATE).save(output_path + '.jpg', 'JPEG', quality = JPEG_QUALITY, subsampling = JPEG_SUBSAMPLING)
+    Mirage_Image_Class = Mirage_Image_Colored
+
+Mirage_Image_Class(inner_path, cover_path, MAX_SIZE, LIMIT_INNER, LIMIT_COVER, HIDING_RATE).save(output_path + '.jpg', 'JPEG', JPEG_QUALITY, JPEG_SUBSAMPLING)
 
 print('Output saved as', output_path + '.jpg')
