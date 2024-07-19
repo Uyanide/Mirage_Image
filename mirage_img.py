@@ -59,10 +59,8 @@ class Mirage_Image_Colored:
     def merge(self, limit_inner, limit_cover, hiding_rate):
         '''
         生成隐写图
-        :param inner_img: 里图对象
-        :param cover_img: 表图对象
         :param limit_inner: 里图色阶限制
-        :param hiding_rate: 表图色阶限制
+        :param limit_cover: 表图色阶限制
         :param hiding_rate: 隐藏率, 即表图中每hiding_rate个像素隐藏一个里图像素, 越大隐写效果越明显
         :return output_img: 隐写图对象
 

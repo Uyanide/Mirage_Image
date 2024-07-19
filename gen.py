@@ -39,6 +39,19 @@ LIMIT_INNER = args.limit_inner
 LIMIT_COVER = args.limit_cover
 HIDING_RATE = args.hiding_rate
 
+if MAX_SIZE < 1:
+    print('Max size must be positive')
+    exit(1)
+if LIMIT_INNER < 0 or LIMIT_INNER > 255:
+    print('Limit of inner image must be in [0, 255]')
+    exit(1)
+if LIMIT_COVER < 0 or LIMIT_COVER > 255:
+    print('Limit of cover image must be in [0, 255]')
+    exit(1)
+if HIDING_RATE < 2:
+    print('Hiding rate must be at least 2')
+    exit(1)
+
 if option == 'gray':
     Mirage_Image_Gray(inner_path, cover_path, MAX_SIZE).merge(LIMIT_INNER, LIMIT_COVER, HIDING_RATE).save(output_path + '.jpg', 'JPEG', quality = JPEG_QUALITY, subsampling = JPEG_SUBSAMPLING)
 elif option == 'colored':
