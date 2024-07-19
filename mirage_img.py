@@ -1,20 +1,8 @@
 from PIL import Image
 
-# 常量定义
-# merge默认参数
-LIMIT_INNER = 32
-LIMIT_COVER = 64
-HIDING_RATE = 2
-# 输出图像尺寸默认参数
-MAX_SIZE = 1200
-# 输出图像保存参数
-JPEG_QUALITY = 95
-JPEG_SUBSAMPLING = '4:4:4'
-
-
 class Mirage_Image_Colored:
     @staticmethod
-    def load_inner_image(image_path, max_size = MAX_SIZE):
+    def load_inner_image(image_path, max_size):
         '''
         加载里图, 限制最大尺寸, 进行缩放
         :param image_path: 图片路径
@@ -49,16 +37,26 @@ class Mirage_Image_Colored:
         resized_img = cropped_img.resize(target_size, Image.Resampling.LANCZOS)
         return resized_img
 
-    def __init__(self, inner_path, cover_path, max_size = MAX_SIZE):
+    def __init__(self, inner_path, cover_path, max_size):
+        '''
+        构造函数
+        :param inner_path: 里图路径
+        :param cover_path: 表图路径
+        :param max_size: 最大尺寸
+        '''
         self.inner_path = inner_path
         self.cover_path = cover_path
         self.inner_img = self.load_inner_image(inner_path, max_size)
         self.cover_img = self.load_cover_image(cover_path, self.inner_img.size)
 
     def get_pixels(self):
+        '''
+        获取表里图像素访问对象
+        :return: 表里图像素访问对象 (均为RGB模式)
+        '''
         return self.inner_img.load(), self.cover_img.load()
 
-    def merge(self, limit_inner = LIMIT_INNER, limit_cover = LIMIT_COVER, hiding_rate = HIDING_RATE):
+    def merge(self, limit_inner, limit_cover, hiding_rate):
         '''
         生成隐写图
         :param inner_img: 里图对象
@@ -103,29 +101,8 @@ class Mirage_Image_Colored:
 
 class Mirage_Image_Gray(Mirage_Image_Colored):
     def get_pixels(self):
+        '''
+        获取表里图像素访问对象
+        :return: 表里图像素访问对象 (表图为RGB模式的灰度图)
+        '''
         return self.inner_img.load(), self.cover_img.convert('L').convert('RGB').load()
-
-
-import sys
-
-
-if len(sys.argv) < 4 or len(sys.argv) > 5:
-    print('Usage: python mirage_img.py <option(GRAY or COLORED)> <inner_image_path> <cover_image_path> <output_file_prefix(optional)>')
-    sys.exit(1)
-option = sys.argv[1].upper()
-inner_path = sys.argv[2]
-cover_path = sys.argv[3]
-if len(sys.argv) > 4:
-    output_path = sys.argv[4]
-else:
-    output_path = 'output'
-
-if option == 'GRAY':
-    Mirage_Image_Gray(inner_path, cover_path).merge().save(output_path + '.jpg', 'JPEG', quality = JPEG_QUALITY, subsampling = JPEG_SUBSAMPLING)
-elif option == 'COLORED':
-    Mirage_Image_Colored(inner_path, cover_path).merge().save(output_path + '.jpg', 'JPEG', quality = JPEG_QUALITY, subsampling = JPEG_SUBSAMPLING)
-else:
-    print('Invalid option')
-    sys.exit(1)
-
-print('Output saved as', output_path + '.jpg')
