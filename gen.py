@@ -17,7 +17,7 @@ JPEG_SUBSAMPLING = '4:4:4'
 parser = ArgumentParser(description = 'Generate mirage image')
 
 # 位置参数
-parser.add_argument('option', choices=['GRAY', 'COLORED'], help = 'GRAY for gray cover image, COLORED for colored cover image')
+parser.add_argument('option', choices=['gray', 'colored'], help = 'select gray or colored cover image')
 parser.add_argument('inner_image_path', help = 'inner image path')
 parser.add_argument('cover_image_path', help = 'cover image path')
 parser.add_argument('output_file_prefix', nargs = '?', default = 'output', help = 'output file prefix')
@@ -39,9 +39,9 @@ LIMIT_INNER = args.limit_inner
 LIMIT_COVER = args.limit_cover
 HIDING_RATE = args.hiding_rate
 
-if option == 'GRAY':
+if option == 'gray':
     Mirage_Image_Gray(inner_path, cover_path, MAX_SIZE).merge(LIMIT_INNER, LIMIT_COVER, HIDING_RATE).save(output_path + '.jpg', 'JPEG', quality = JPEG_QUALITY, subsampling = JPEG_SUBSAMPLING)
-elif option == 'COLORED':
+elif option == 'colored':
     Mirage_Image_Colored(inner_path, cover_path, MAX_SIZE).merge(LIMIT_INNER, LIMIT_COVER, HIDING_RATE).save(output_path + '.jpg', 'JPEG', quality = JPEG_QUALITY, subsampling = JPEG_SUBSAMPLING)
 
 print('Output saved as', output_path + '.jpg')
