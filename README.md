@@ -39,8 +39,8 @@ python gen.py {gray,colored} inner_image_path cover_image_path [output_file_pref
 (VALUE均为正整数)
 
 3. 使用说明
-    1. 如果limit_inner参数小于limit_cover，里图色阶区间限制为 [0, limit_inner]，表图色阶区间限制为 [limit_cover, 255]。
-    2. 如果limit_inner参数不小于limit_cover，则相反，里图色阶区间限制为 [limit_inner, 255]，表图色阶区间限制为 [0, limit_cover]。
+    1. 如果limit_inner参数不大于limit_cover，里图色阶区间限制为 [0, limit_inner]，表图色阶区间限制为 [limit_cover, 255]。
+    2. 如果limit_inner参数大于limit_cover，则相反，里图色阶区间限制为 [limit_inner, 255]，表图色阶区间限制为 [0, limit_cover]。
     3. 不需要预先处理图像大小，程序会根据里图尺寸自动裁剪缩放表图以保证完整覆盖。
 
 
