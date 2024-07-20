@@ -54,5 +54,5 @@ python gen.py {gray,colored} inner_image_path cover_image_path [output_file_pref
 ## 说明
 详情见 [百度贴吧 - 开个贴细说新式高科技坦克](https://tieba.baidu.com/p/9093709508)
 
-## 简陋的显形小工具
+## 自制简陋显形小工具
 [光棱坦克显形](https://uyanide.github.io/Mirage_Decode/)
