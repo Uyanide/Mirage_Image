@@ -1,3 +1,5 @@
+(生成脚本已整合入新项目[Mirage_Decode](https://github.com/Uyanide/Mirage_Decode)，可实现可视化操作)
+
 # 利用色阶分离和像素交错实现新世代幻影坦克
 
 ## 导入库
@@ -54,5 +56,5 @@ python gen.py {gray,colored} inner_image_path cover_image_path [output_file_pref
 ## 说明
 详情见 [百度贴吧 - 开个贴细说新式高科技坦克](https://tieba.baidu.com/p/9093709508)
 
-## 自制简陋显形小工具
-[光棱坦克显形](https://uyanide.github.io/Mirage_Decode/)
+## 自制简陋显形和制作小工具
+[光棱坦克工厂](https://uyanide.github.io/Mirage_Decode/)
