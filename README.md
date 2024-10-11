@@ -1,6 +1,6 @@
 (生成脚本已整合入新项目[Mirage_Decode](https://github.com/Uyanide/Mirage_Decode)，可实现可视化操作)
 
-# 利用色阶分离和像素交错实现新世代幻影坦克
+# 利用灰度值分离和像素交错实现新世代幻影坦克
 
 ## 导入库
 Pillow
